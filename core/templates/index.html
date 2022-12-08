@@ -1,0 +1,13 @@
+{% if user.is_authenticated %}
+
+<h1>You are logged in!</h1>
+<p>Email: {{user.email}}</p>
+<button>Logout</button>
+
+{% else %}
+
+<h1>You are not logged in</h1>
+<a href="{% url 'user_registration' %}">Sign Up</a>
+<button>Log In</button>
+
+{% endif %}
