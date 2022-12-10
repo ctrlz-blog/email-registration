@@ -1,2 +1,9 @@
+<a href="{% url 'index' %}">Home</a>
+<a href="{% url 'user_registration' %}">Sign Up</a>
 <h1>Login</h1>
-<p>Put your login form here...</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Log In">
+</form>
