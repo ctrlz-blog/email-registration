@@ -10,7 +10,8 @@ class CustomUserManager(UserManager):
     def _create_user(
         self, 
         email: str, 
-        password: str, 
+        password: str,
+        commit: bool,
         is_staff: bool = False, 
         is_superuser: bool = False
     ):
@@ -19,15 +20,17 @@ class CustomUserManager(UserManager):
         
         user = User(email=email, username=email, is_staff=is_staff, is_superuser=is_superuser)
         user.set_password(password)
-        user.save()
         
+        if commit:
+            user.save()
+            
         return user
 
-    def create_superuser(self, email: str, password: str):
-        return self._create_user(email, password, is_staff=True, is_superuser=True)
-    
-    def create_user(self, email: str, password: str):
-        return self._create_user(email, password)
+    def create_superuser(self, email: str, password: str, commit: bool = True):
+        return self._create_user(email, password, is_staff=True, is_superuser=True, commit=commit)
+
+    def create_user(self, email: str, password: str, commit: bool = True):
+        return self._create_user(email, password, commit=commit)
 
 class User(AbstractUser):
 
