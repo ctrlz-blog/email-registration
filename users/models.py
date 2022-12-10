@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.core.validators import validate_email
+
 class CustomUserManager(UserManager):
 
     def _get_email(self, email: str):
