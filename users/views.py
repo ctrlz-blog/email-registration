@@ -1,9 +1,16 @@
 from django.shortcuts import render
 from django.contrib.auth.views import LoginView
-from django.http import HttpRequest, HttpResponse
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView
+from django.urls import reverse
 
-def create_user(request: HttpRequest) -> HttpResponse:
-    return render(request, "user_registration.html")
+class UserRegistration(CreateView):
+    template_name = "user_registration.html"
+    form_class = UserCreationForm
+
+    def get_success_url(self):
+        return reverse("login")
+
 
 class Login(LoginView):
     template_name = "login.html"
